@@ -1,0 +1,27 @@
+﻿@using Shopping.Data.Entities;
+@model City;
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar</h1>
+
+<h3>¿Está seguro de eliminar el regitro?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteCity">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-sm btn-danger" />
+        <a asp-action="DetailsState" asp-route-id="@Model.State.Id" class="btn btn-sm btn-success">Regresar</a>
+    </form>
+</div>

@@ -1,0 +1,89 @@
+﻿@using Shopping.Data.Entities;
+@model State;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h1>Detalles</h1>
+    </div>
+
+    <div class="col-6 text-right mt-3">
+        <a asp-action="EditState" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">Editar Provincia</a>
+        <a asp-action="Details" asp-route-id="@Model.Country.Id" class="btn btn-sm btn-success">Regresar</a>
+    </div>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CitiesNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CitiesNumber)
+        </dd>
+    </dl>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="card-title">Ciudades</h3>
+                    </div>
+                    <div class="col-4 mt-2 text-right">
+                        <a asp-action="AddCity" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Crear Nuevo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cities.FirstOrDefault().Name)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (City item in Model.Cities)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a asp-action="EditCity" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                                    <a asp-action="DetailsCity" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalle</a>
+                                    <a asp-action="DeleteCity" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Borrar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_TableScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

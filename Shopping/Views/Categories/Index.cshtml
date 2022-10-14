@@ -1,0 +1,56 @@
+﻿@using Shopping.Data.Entities;
+@model IEnumerable<Category>;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="card-title">Categorías</h3>
+                    </div>
+                    <div class="col-4 mt-2 text-right">
+                        <a asp-action="Create" class="btn btn-sm btn-primary">Crear Nueva</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-hover table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Category item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalle</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Borrar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_TableScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
